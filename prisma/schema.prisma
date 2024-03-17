@@ -1,0 +1,101 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  // provider = "mysql"
+  // url      = env("DATABASE_URL")
+  provider = "postgresql"
+  // Uses connection pooling
+  url = env("POSTGRES_PRISMA_URL")
+  // Uses direct connection, ⚠️ make sure to keep this to `POSTGRES_URL_NON_POOLING`
+  // or you'll have dangling databases from migrations
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model LayoutType {
+  code         String        @id @map("layout_type_code")
+  name         String        @map("layout_type_name")
+  description  String?       @map("layout_type_description")
+  isDeleted    Int           @default(0) @map("is_deleted")
+  themeDetails ThemeDetail[]
+
+  @@map("tb_layout_type")
+}
+
+model Theme {
+  id           Int           @id @default(autoincrement()) @map("theme_id")
+  name         String        @map("theme_name")
+  description  String?       @map("theme_description")
+  isDeleted    Int           @default(0) @map("is_deleted")
+  themeDetails ThemeDetail[]
+
+  @@map("tb_theme")
+}
+
+model ThemeDetail {
+  id             Int         @id @default(autoincrement()) @map("theme_detail_id")
+  position       Int         @default(0) @map("theme_detail_position")
+  isDeleted      Int         @default(0) @map("is_deleted")
+  theme          Theme       @relation(fields: [themeId], references: [id])
+  themeId        Int         @map("theme_id")
+  layoutType     LayoutType  @relation(fields: [layoutTypeCode], references: [code])
+  layoutTypeCode String      @map("layout_type_code")
+  components     Component[]
+
+  @@map("tb_theme_detail")
+}
+
+model ComponentType {
+  code        String      @id @map("comp_type_code")
+  name        String      @map("comp_type_name")
+  description String?     @map("comp_type_description")
+  isDeleted   Int         @default(0) @map("is_deleted")
+  attributes  Attribute[]
+  components   Component[]
+
+  @@map("tb_component_type")
+}
+
+model Attribute {
+  id                Int           @id @default(autoincrement()) @map("attr_id")
+  name              String        @map("attr_name")
+  description       String?       @map("attr_description")
+  isDeleted         Int           @default(0) @map("is_deleted")
+  componentType     ComponentType @relation(fields: [componentTypeCode], references: [code])
+  componentTypeCode String        @map("comp_type_code")
+
+  @@map("tb_attribute")
+}
+
+model Component {
+  id                  Int                  @id @default(autoincrement()) @map("comp_id")
+  name                String               @map("comp_name")
+  description         String?              @map("comp_description")
+  position            Int                  @default(0) @map("comp_position")
+  isDeleted           Int                  @default(0) @map("is_deleted")
+  componentType       ComponentType        @relation(fields: [componentTypeCode], references: [code])
+  componentTypeCode   String               @map("comp_type_code")
+  themeDetail         ThemeDetail          @relation(fields: [themeDetailId], references: [id])
+  themeDetailId       Int                  @map("theme_detail_id")
+  componentAttributes ComponentAttribute[]
+
+  @@map("tb_component")
+}
+
+model ComponentAttribute {
+  attributeId Int       @map("attr_id")
+  componentId Int       @map("comp_id")
+  dataContent String?   @map("data_content")
+  isDeleted   Int       @default(0) @map("is_deleted")
+  components  Component @relation(fields: [componentId], references: [id])
+
+  @@unique(name: "uniqueCompAttr", [attributeId, componentId])
+  @@map("tb_component_attribute")
+}

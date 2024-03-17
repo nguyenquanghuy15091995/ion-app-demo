@@ -6,7 +6,7 @@ import { ThemeDetailRelation } from "@/utils/types/params";
 const Home = async () => {
   const themeDetailList: { data: ThemeDetailRelation[] } = await apis.themeDetail.getManyThemeDetailByThemeId({
     themeId: 1,
-    options: { next: { revalidate: 10 } },
+    options: { next: { revalidate: 2 } },
   })
   return (
     <main>

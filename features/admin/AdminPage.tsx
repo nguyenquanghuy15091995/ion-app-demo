@@ -69,12 +69,11 @@ const AdminDnDContainer = () => {
 }
 
 const AdminInitContainer = () => {
-  const { currentTheme } = useAdminStore();
-  const isAfterInit = Boolean(currentTheme);
+  const { isPageLoading } = useAdminStore();
   return (
     <>
       <AdminInitialize />
-      {!isAfterInit && (<div className={clsx("fixed z-[100] bg-white inset-0 flex items-center justify-center")}>
+      {isPageLoading && (<div className={clsx("fixed z-[100] bg-white inset-0 flex items-center justify-center")}>
         <p className={clsx("animate-pulse font-bold text-2xl")}>Loading...</p>
       </div>)}
     </>

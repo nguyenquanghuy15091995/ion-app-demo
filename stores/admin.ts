@@ -15,6 +15,8 @@ type AdminStoreProps = {
   setIsModalModifyOpen: (newData: boolean) => void;
   currentThemeDetail?: ThemeDetailRelation;
   setCurrentThemeDetail: (newData?: ThemeDetailRelation) => void;
+  isPageLoading: boolean;
+  setIsPageLoading: (newData: boolean) => void;
 }
 
 export const useAdminStore = create<AdminStoreProps>((set) => ({
@@ -37,4 +39,6 @@ export const useAdminStore = create<AdminStoreProps>((set) => ({
   isModalModifyOpen: false,
   setIsModalModifyOpen: (newData) => set({ isModalModifyOpen: newData }),
   setCurrentThemeDetail: (newData) => set({ currentThemeDetail: newData }),
+  isPageLoading: true,
+  setIsPageLoading: (newData) => set({ isPageLoading: newData }),
 }))

@@ -6,11 +6,12 @@ import { useEffect } from "react";
 import { LayoutType, Theme } from "@prisma/client";
 
 const AdminInitialize = () => {
-  const { setComponentTypeList, setThemeDetailList, setCurrentLayoutType, setCurrentTheme } = useAdminStore();
+  const { setComponentTypeList, setThemeDetailList, setCurrentLayoutType, setCurrentTheme, setIsPageLoading } = useAdminStore();
 
   useEffect(() => {
     const initAdminData = async () => {
       try {
+        setIsPageLoading(true);
         const resDataList = await Promise.allSettled([
           apis.componentType.getManyComponentType(),
           apis.layoutType.getOnceLayoutType(),
@@ -39,6 +40,8 @@ const AdminInitialize = () => {
         }
       } catch (error) {
         console.error(error);
+      } finally {
+        setIsPageLoading(false);
       }
     }
     initAdminData();

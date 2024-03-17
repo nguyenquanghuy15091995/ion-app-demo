@@ -37,4 +37,6 @@ This project is developed on Next.js source code, encompassing both Front-End an
 
 ![admin 2](/docs/img_demo_admin_2.png)
 
+![admin 3](/docs/img_demo_admin_3.png)
+
 ![user 1](/docs/img_demo_user_1.png)

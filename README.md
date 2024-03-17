@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# I-ON demo
 
-## Getting Started
+#### Author: Huy Nguyen
 
-First, run the development server:
+#### Tech stacks:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<ul>
+  <li><strong>Framework/Libs:</strong> NextJs, ReactJs, React-DnD, React-Modal, zustand.</li>
+  <li><strong>ORM:</strong> Prisma.</li>
+  <li><strong>Database:</strong> PostgresSQL.</li>
+  <li><strong>Cloud:</strong> Vercel.</li>
+</ul>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+#### Overview:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+This project is developed on Next.js source code, encompassing both Front-End and Back-End, with the aim of creating a demo within a short timeframe. Given the limited duration, I utilized libraries within the React.js ecosystem to enhance work efficiency and stability. In summary, the project is a <strong><em>monolithic</em></strong> structure.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+#### System Architecture:
 
-## Learn More
+![System Architecture](/docs/img_system_architecture.jpg)
 
-To learn more about Next.js, take a look at the following resources:
+#### Database Design:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+![ERD](/docs/img_demo_erd.jpg)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The database is designed with the aim of allowing flexibility for its components. The idea is as follows: Users will edit the UI on an object called <u>Theme</u>, each <u>Theme</u> will have a list of <u>ThemeDetail</u>, within each <u>ThemeDetail</u> there will be a <u>LayoutType</u> (grid, flex, etc.) and a list of <u>Components</u>. For each <u>Component</u> object, there will be a <u>ComponentType</u> (button, paragraph), based on which the number and values of <u>Attributes</u> can be determined.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For example, a Button named ABC has a <u>ComponentType</u> is <em>button</em> and 2 attributes are <em>label</em> and <em>alert_text</em>. Based on the ID of the ABC component, the values of the 2 attributes label and alert_text can be determined.
 
-## Deploy on Vercel
+#### Demo:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- <strong>Admin Page:</strong> [Link](https://ion-app-demo.vercel.app/admin)
+- <strong>Anonymous User Page (Preview):</strong> [Link](https://ion-app-demo.vercel.app)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+#### Demo Images:
+
+![admin 1](/docs/img_demo_admin_1.png)
+
+![admin 2](/docs/img_demo_admin_2.png)
+
+![user 1](/docs/img_demo_user_1.png)
